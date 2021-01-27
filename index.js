@@ -77,6 +77,7 @@ async function run(fileType) {
       const messages = await columns[i].$$('.message-main');
 
       // loop through and add messages to child arrays
+      // NOTE: do not add vote count - this way each idea on the board can be considered without any existing weight in a retrospective
       for (let j = 0; j < messages.length; j++) {
         let messageText = await messages[j].$eval('.message-body .text', (node) => node.innerText.trim());
         const votes = await messages[j].$eval('.votes .vote-area span.show-vote-count', (node) => parseInt(node.innerText.trim()));

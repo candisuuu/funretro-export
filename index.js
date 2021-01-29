@@ -82,13 +82,13 @@ async function run(fileType) {
         let messageText = await messages[j].$eval('.message-body .text', (node) => node.innerText.trim());
         const votes = await messages[j].$eval('.votes .vote-area span.show-vote-count', (node) => parseInt(node.innerText.trim()));
 
+        // only add a new row/message if the message we're looking at has more than 0 votes
+        if (votes > 0) {
         // check if an array (row) already exists
-        if (parsedData.data[(j+1)]) {
-          // add message to its respective position in the array based on column (i)
-          if (votes > 0)
-            parsedData.data[(j+1)][i] = messageText;
-        } else { // if an array does not exist then check if the message has more than 0 votes and create a new array
-          if (votes > 0) {
+          if (parsedData.data[(j+1)]) {
+            // add message to its respective position in the array based on column (i)
+              parsedData.data[(j+1)][i] = messageText;
+          } else { // if an array does not exist then check if the message has more than 0 votes and create a new array
             // create new array variable
             let newArray = new Array(columns.length).fill('', 0, columns.length);
 
